@@ -1,0 +1,195 @@
+/* ===== Google Font Import - Poppins ===== */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;                     /*박스의 크기를 테두리 기준*/
+    font-family: 'Poppins', sans-serif;                   
+}
+
+/* ===== Colours ===== */
+:root{                                          /*가장 상위 요소를 선택하는 가상 클래스*/
+    --body-color: #E4E9F7;
+    --nav-color: #4070F4;
+    --side-nav: #010718;
+    --text-color:#FFF;  
+}
+
+body{
+    height: 100vh;
+    background-color: var(--body-color);        /*root에서 정한 색 불러오기*/
+}
+
+body.dark{
+    --body-color: #18191A;
+    --nav-color: #242526;
+    --side-nav: #010718;
+    --text-color:#CCC;  
+}
+
+nav{
+    position: fixed;                            /*초기 컨테이닝 블록을 기준(body)으로 삼아 배치*/
+    top: 0;
+    left: 0;
+    height: 70px;
+    width: 100%;
+    background-color: var(--nav-color);
+    z-index: 100;
+}
+
+nav .nav-bar{
+    position: relative;                          /*요소를 일반적인 문서 흐름에 따라 배치, 자기 자신을 기준으로 오프셋을 적용*/
+    height: 100%;  
+    max-width: 1000px;
+    width: 100%;
+    background-color: var(--nav-color);  
+    margin: 0 auto;
+    padding: 0 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;             /*메인축 방향으로 아이템들의 “사이(between)”에 균일한 간격을 만들어 줍니다.*/                 
+}
+
+nav .nav-bar .siderbarOpen{
+    color: var(--text-color);
+    font-size:  25px;
+    padding: 5px;
+    cursor: pointer;
+    display: none;
+}
+
+nav .nav-bar .logo a{
+    font-size: 25px;
+    font-weight: 500;
+    color: var(--text-color);
+    text-decoration: none;
+}
+
+.menu .logo-toggle{
+    display: none;
+}
+
+.nav-bar .nav__links{
+    display: flex;
+    list-style: none;
+}
+
+.nav-bar .nav__links li{
+    margin: 0 5px;
+    list-style: none;
+}
+
+.nav__links li a{
+    position: relative;
+    font-size: 17px;
+    font-weight: 500;
+    color: var(--text-color);
+    text-decoration: none;
+    padding: 10px;
+}
+
+.nav__links li a::before{
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translateX(50%);             /*해당 위치에서 요소를 주어진 x축의 거리만큼(50%) 이동 */
+    height: 6px;
+    width: 6px;
+    border-radius: 50%;
+    background-color:  var(--text-color);
+    opacity: 0;                             /*불투명도 설정*/
+    transition: all 0.3s ease;              /*전부 변환하고 0.3초동안 처음엔 빠르고 중간에 느리다가 다시 빨라짐*/
+}
+
+.nav__links li:hover a::before{
+    opacity: 1;  
+}
+
+.nav-bar .darkLight-box{
+    display: flex;
+    align-items: center;
+}
+
+.nav-bar .dark-light{
+    height: 40px;
+    width: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;    
+    margin: 0 5px;
+}
+
+.dark-light i{
+    position: absolute;
+    color: var(--text-color);
+    font-size: 22px;
+    cursor: pointer;                    /*커서를 올리면 포인터모양으로 마우스 변경*/
+    transition: all 0.3s ease;
+}
+
+.dark-light i.sun{
+    opacity: 0;
+    pointer-events: none;               /*포인터 이벤트의 대상 제외*/
+}
+
+.dark-light.active i.sun{
+    opacity: 1;
+    pointer-events: auto;               /*속성을 지정하지 않은 것 처럼 행동*/
+}
+
+.dark-light.active i.moon{
+    opacity: 0;
+    pointer-events: none;               /*속성을 지정하지 않은 것 처럼 행동*/
+}
+
+@media (max-width: 790px){
+    nav .nav-bar .siderbarOpen{
+        display: block;
+    }
+    .menu{
+        position: fixed;
+        height: 100%;
+        width: 320px;
+        left: -100%;
+        top: 0;
+        padding: 20px;
+        background-color: var(--side-nav);
+        z-index: 100;                       /*Z축 순서를 지정*/
+        transition: all 0.4s ease;
+    }
+
+    nav.active .menu{
+        left: -0%;
+    }
+
+    nav.active .nav-bar .navlogo a{
+        opacity: 0;
+        transition: all 0.3s ease;
+    }
+
+    .menu .logo-toggle{
+        display: block;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .logo-toggle .siderbarClose{
+        color: var(--text-color);
+        font-size: 24px;
+        cursor: pointer;
+    }
+
+    .nav-bar .nav__links{
+        flex-direction: column;
+        padding-top: 30px;
+    }
+
+    .nav__links li a{
+        display: block;
+        margin-top: 20px;
+    }
+}
